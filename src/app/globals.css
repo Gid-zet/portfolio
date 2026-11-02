@@ -1,0 +1,142 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #07060b;
+  --bg-2: #0e0c16;
+  --fg: #f4f2f8;
+  --muted: #9b97ab;
+  --line: rgba(255, 255, 255, 0.09);
+  --violet: #a855f7;
+  --fuchsia: #ec4899;
+  --indigo: #6366f1;
+  --grad: linear-gradient(100deg, #c084fc 0%, #a855f7 30%, #ec4899 70%, #fb7185 100%);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-violet: var(--violet);
+  --color-fuchsia: var(--fuchsia);
+  --font-sans: var(--font-inter-tight), system-ui, sans-serif;
+  --font-serif: var(--font-instrument), Georgia, serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html { background: var(--bg); color-scheme: dark; }
+  html, body { overflow-x: clip; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection { background: var(--fuchsia); color: #fff; }
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  @media (pointer: fine) {
+    html.has-cursor, html.has-cursor * { cursor: none !important; }
+  }
+}
+
+@layer components {
+  .container-x { width: min(1320px, 100% - 40px); margin-inline: auto; }
+
+  .text-grad {
+    background: var(--grad);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .glass {
+    background: rgba(18, 16, 28, 0.55);
+    border: 1px solid var(--line);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+  }
+
+  /* hairline gradient border */
+  .ring-grad { position: relative; }
+  .ring-grad::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(140deg, rgba(255,255,255,.22), rgba(255,255,255,.03) 40%, rgba(236,72,153,.35));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 999px;
+    padding: 0.4rem 0.85rem;
+    font-size: 0.82rem;
+    color: #d6d3e0;
+    transition: border-color .3s, background .3s, color .3s;
+  }
+  .chip:hover { border-color: rgba(236, 72, 153, .5); color: #fff; background: rgba(236, 72, 153, .08); }
+
+  .outline-text {
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.35);
+  }
+}
+
+/* film grain */
+.grain {
+  pointer-events: none;
+  position: fixed;
+  inset: -50%;
+  z-index: 60;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation: grain 1.2s steps(6) infinite;
+}
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-3%, 2%); }
+  40% { transform: translate(2%, -3%); }
+  60% { transform: translate(-2%, -1%); }
+  80% { transform: translate(3%, 3%); }
+}
+
+@keyframes aurora {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(6%, -8%) scale(1.15); }
+  66% { transform: translate(-6%, 6%) scale(.9); }
+}
+.aurora { animation: aurora 18s ease-in-out infinite; }
+
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+.spin-slow { animation: spin-slow 16s linear infinite; }
+
+@keyframes pulse-dot {
+  0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, .6); }
+  100% { box-shadow: 0 0 0 10px rgba(74, 222, 128, 0); }
+}
+.pulse-dot { animation: pulse-dot 1.8s ease-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}
