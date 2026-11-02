@@ -41,7 +41,7 @@ export function Cursor() {
     <>
       <motion.div
         aria-hidden
-        className="pointer-events-none fixed left-0 top-0 z-[100] grid place-items-center rounded-full"
+        className={`pointer-events-none fixed left-0 top-0 z-[100] grid place-items-center rounded-full ${label ? "" : "liquid liquid-lens !shadow-none"}`}
         style={{ x: rx, y: ry, translateX: "-50%", translateY: "-50%" }}
         animate={{
           width: size,

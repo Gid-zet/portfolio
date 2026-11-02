@@ -50,7 +50,7 @@ function Card({ p, i, progress, total }: { p: Project; i: number; progress: Moti
                 <a href={p.live} target="_blank" rel="noreferrer" className="group inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-medium text-black">
                   Live site <span className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">↗</span>
                 </a>
-                <a href={p.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-line px-5 py-3 text-sm font-medium transition-colors hover:border-white/40">
+                <a href={p.github} target="_blank" rel="noreferrer" className="liquid inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-medium">
                   Source code
                 </a>
               </div>
@@ -70,6 +70,9 @@ function Card({ p, i, progress, total }: { p: Project; i: number; progress: Moti
                 <motion.div style={{ scale: imgScale }} className="relative aspect-[16/7] w-full origin-top md:absolute md:inset-0 md:top-7 md:aspect-auto">
                   <Image src={p.image} alt={`${p.name} screenshot`} fill sizes="(max-width: 768px) 100vw, 700px" className="object-cover object-top transition-transform duration-[1.2s] ease-expo group-hover:scale-105" />
                 </motion.div>
+                <span className="liquid absolute bottom-3 right-3 z-10 rounded-full px-3.5 py-1.5 text-xs font-medium text-black/80 md:bottom-5 md:right-5">
+                  <span className="relative z-[2]">{p.client}</span>
+                </span>
               </div>
             </div>
           </a>

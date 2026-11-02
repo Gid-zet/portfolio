@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { profile } from "@/lib/data";
+import { LiquidGlass } from "./LiquidGlass";
 import { Magnetic } from "./Magnetic";
 import { VelocityMarquee } from "./Marquee";
 
@@ -45,20 +46,24 @@ export function Contact() {
             className="group mt-8 inline-flex items-center gap-3 text-lg text-muted transition-colors hover:text-white md:text-2xl"
           >
             {profile.email}
-            <span className="rounded-full border border-line px-3 py-1 font-mono text-xs">{copied ? "Copied ✓" : "Copy"}</span>
+            <span className="liquid rounded-full px-3 py-1 font-mono text-xs">{copied ? "Copied ✓" : "Copy"}</span>
           </button>
         </div>
         <Magnetic strength={0.4}>
-          <motion.a
-            href={`mailto:${profile.email}`}
-            whileHover={{ scale: 1.06 }}
-            className="relative grid h-44 w-44 place-items-center rounded-full bg-[image:var(--grad)] text-lg font-medium shadow-[0_0_80px_rgba(236,72,153,.35)] md:h-56 md:w-56 md:text-xl"
-          >
-            <span className="text-center leading-tight">
-              E‑mail me
-              <span className="mt-1 block text-2xl">↗</span>
-            </span>
-          </motion.a>
+          <div className="relative grid h-52 w-52 place-items-center md:h-64 md:w-64">
+            {/* colour drifting behind the glass */}
+            <div aria-hidden className="absolute inset-0">
+              <motion.div className="absolute left-[8%] top-[10%] h-28 w-28 rounded-full bg-violet blur-xl md:h-36 md:w-36" animate={{ x: [0, 40, 0], y: [0, 30, 0] }} transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }} />
+              <motion.div className="absolute bottom-[8%] right-[6%] h-28 w-28 rounded-full bg-fuchsia blur-xl md:h-36 md:w-36" animate={{ x: [0, -40, 0], y: [0, -25, 0] }} transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }} />
+              <motion.div className="absolute left-[40%] top-[40%] h-16 w-16 rounded-full bg-amber-300 blur-lg" animate={{ x: [-30, 30, -30] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }} />
+            </div>
+            <LiquidGlass as={motion.a} variant="lens" href={`mailto:${profile.email}`} whileHover={{ scale: 1.06 }} className="grid h-44 w-44 place-items-center rounded-full text-lg font-medium md:h-56 md:w-56 md:text-xl">
+              <span className="relative z-[2] text-center leading-tight [text-shadow:0_2px_12px_rgba(0,0,0,.35)]">
+                E‑mail me
+                <span className="mt-1 block text-2xl">↗</span>
+              </span>
+            </LiquidGlass>
+          </div>
         </Magnetic>
       </div>
 

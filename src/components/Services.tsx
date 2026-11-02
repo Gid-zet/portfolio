@@ -45,7 +45,7 @@ export function Services() {
                   </span>
                   <motion.span
                     animate={{ rotate: on ? 45 : 0, backgroundColor: on ? "#ffffff" : "rgba(255,255,255,0)" }}
-                    className={`grid h-12 w-12 place-items-center rounded-full border border-line text-xl ${on ? "text-black" : ""}`}
+                    className={`liquid grid h-12 w-12 place-items-center rounded-full text-xl ${on ? "text-black" : ""}`}
                   >
                     +
                   </motion.span>

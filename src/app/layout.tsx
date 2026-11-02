@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist_Mono, Instrument_Serif, Inter_Tight } from "next/font/google";
 import { Cursor } from "@/components/Cursor";
+import { GlassFilters } from "@/components/LiquidGlass";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import "./globals.css";
 
@@ -24,6 +25,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${interTight.variable} ${instrument.variable} ${geistMono.variable}`}>
       <body>
+        <GlassFilters />
         <SmoothScroll />
         <Cursor />
         <div className="grain" aria-hidden />

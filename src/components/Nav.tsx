@@ -30,7 +30,7 @@ export function Nav() {
         animate={{ y: hidden ? -100 : 0 }}
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       >
-        <nav className={`container-x flex items-center justify-between rounded-full px-3 py-2.5 transition-all duration-500 ${scrolled ? "glass" : "border border-transparent"}`}>
+        <nav className={`container-x flex items-center justify-between rounded-full px-3 py-2.5 transition-all duration-500 ${scrolled ? "liquid" : "border border-transparent"}`}>
           <a href="#top" className="flex items-center gap-2 pl-2 text-lg font-semibold tracking-tight">
             <span className="grid h-8 w-8 place-items-center rounded-full bg-white font-serif text-xl italic text-black">G</span>
             <span>
@@ -56,7 +56,7 @@ export function Nav() {
               onClick={() => setOpen((o) => !o)}
               aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
-              className="relative grid h-10 w-10 place-items-center rounded-full border border-line bg-white/5 md:hidden"
+              className="liquid relative grid h-10 w-10 place-items-center rounded-full md:hidden"
             >
               <span className={`absolute h-px w-4 bg-white transition-transform duration-300 ${open ? "rotate-45" : "-translate-y-1"}`} />
               <span className={`absolute h-px w-4 bg-white transition-transform duration-300 ${open ? "-rotate-45" : "translate-y-1"}`} />

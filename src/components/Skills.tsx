@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import { skills } from "@/lib/data";
+import { LiquidGlass } from "./LiquidGlass";
 import { FadeUp, SectionLabel, SplitReveal } from "./Reveal";
 
 /** Looping keyframe/easing curve: a small nod to the motion graphics toolkit. */
@@ -46,7 +47,14 @@ function MotionArt() {
 export function Skills() {
   return (
     <section className="relative py-24 md:py-32">
-      <div className="container-x">
+      {/* colour for the glass to refract */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="aurora absolute left-[8%] top-[38%] h-[26rem] w-[26rem] rounded-full bg-violet/45 blur-[90px]" />
+        <div className="aurora absolute right-[6%] top-[30%] h-[22rem] w-[22rem] rounded-full bg-fuchsia/40 blur-[90px]" style={{ animationDelay: "-5s" }} />
+        <div className="aurora absolute bottom-[4%] left-[40%] h-[20rem] w-[30rem] rounded-full bg-indigo-500/35 blur-[90px]" style={{ animationDelay: "-10s" }} />
+        <div className="aurora absolute bottom-[20%] right-[30%] h-40 w-40 rounded-full bg-amber-400/30 blur-[60px]" style={{ animationDelay: "-3s" }} />
+      </div>
+      <div className="container-x relative">
         <div className="flex flex-wrap items-end justify-between gap-8">
           <div>
             <SectionLabel index="03">Technical arsenal</SectionLabel>
@@ -60,11 +68,8 @@ export function Skills() {
             const span = s.featured ? "md:col-span-4 md:row-span-2" : i > 2 ? "md:col-span-3" : "md:col-span-2";
             return (
               <FadeUp key={s.title} delay={i * 0.06} className={span}>
-                <div
-                  className={`ring-grad group relative h-full overflow-hidden rounded-[28px] p-7 transition-colors duration-500 ${
-                    s.featured ? "bg-gradient-to-br from-violet/25 via-bg-2 to-fuchsia/20" : s.psych ? "bg-gradient-to-r from-violet/10 to-transparent" : "bg-bg-2 hover:bg-[#13101e]"
-                  }`}
-                >
+                <LiquidGlass className="group h-full overflow-hidden rounded-[28px] p-7">
+                  {s.featured && <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-br from-violet/25 via-transparent to-fuchsia/20" />}
                   <div className="mb-6 flex items-start justify-between gap-4">
                     <h3 className={`${s.featured ? "text-4xl md:text-5xl" : "text-2xl"} font-semibold tracking-[-0.03em]`}>
                       {s.featured ? (
@@ -94,7 +99,7 @@ export function Skills() {
                       </span>
                     ))}
                   </div>
-                </div>
+                </LiquidGlass>
               </FadeUp>
             );
           })}

@@ -3,6 +3,7 @@
 import { motion, useMotionTemplate, useMotionValue, useScroll, useSpring, useTransform } from "motion/react";
 import { useRef } from "react";
 import { roles } from "@/lib/data";
+import { LiquidGlass } from "./LiquidGlass";
 import { Magnetic } from "./Magnetic";
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -15,6 +16,32 @@ function Line({ children, delay, className = "" }: { children: React.ReactNode; 
         {children}
       </motion.span>
     </span>
+  );
+}
+
+/** A draggable bead of liquid glass that refracts the headline beneath it. */
+function GlassLens({ bounds }: { bounds: React.RefObject<HTMLElement | null> }) {
+  return (
+    <motion.div
+      drag
+      dragConstraints={bounds}
+      dragElastic={0.15}
+      dragTransition={{ bounceStiffness: 300, bounceDamping: 18 }}
+      whileDrag={{ scale: 1.08 }}
+      whileHover={{ scale: 1.04 }}
+      initial={{ opacity: 0, scale: 0.4 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ delay: intro + 0.8, type: "spring", stiffness: 120, damping: 14 }}
+      data-cursor="Drag"
+      className="absolute left-[50%] top-[23%] z-20 h-[clamp(120px,17vw,230px)] w-[clamp(120px,17vw,230px)] cursor-grab touch-none active:cursor-grabbing max-md:left-auto max-md:right-[4%] max-md:top-[16%]"
+    >
+      <motion.div
+        className="liquid liquid-lens h-full w-full rounded-full"
+        animate={{ y: [0, -14, 0], rotate: [0, 4, 0] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <span className="label pointer-events-none absolute -top-7 left-1/2 -translate-x-1/2 whitespace-nowrap !text-[10px] !text-white/50">drag me ✦</span>
+    </motion.div>
   );
 }
 
@@ -57,12 +84,14 @@ export function Hero() {
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-bg" />
       </div>
 
+      <GlassLens bounds={ref} />
+
       <motion.div style={{ y, opacity, scale }} className="container-x relative flex flex-1 flex-col justify-center pb-10 pt-32">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: intro, duration: 1, ease }}
-          className="glass mb-8 inline-flex w-fit items-center gap-3 rounded-full py-1.5 pl-1.5 pr-4 text-sm text-white/80"
+          className="liquid mb-8 inline-flex w-fit items-center gap-3 rounded-full py-1.5 pl-1.5 pr-4 text-sm text-white/80"
         >
           <span className="rounded-full bg-white/10 px-2.5 py-0.5 font-mono text-[11px] tracking-wider text-white">NEW</span>
           Now offering motion graphics ✦
@@ -102,9 +131,9 @@ export function Hero() {
               </a>
             </Magnetic>
             <Magnetic>
-              <a href="#contact" className="glass inline-flex items-center rounded-full px-7 py-4 font-medium transition-colors hover:border-white/30">
-                Get in touch
-              </a>
+              <LiquidGlass as="a" href="#contact" className="inline-flex items-center rounded-full px-7 py-4 font-medium">
+                <span className="relative z-[2]">Get in touch</span>
+              </LiquidGlass>
             </Magnetic>
           </motion.div>
         </div>

@@ -58,12 +58,12 @@ export function Designs() {
               style={{ aspectRatio: `${Math.max(g.w / g.h, 0.62)}` }}
             >
               <Image src={g.src} alt={g.name} fill sizes="40vw" className="object-cover transition-transform duration-[1.2s] ease-expo group-hover:scale-[1.06]" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-100" />
-              <div className="absolute inset-x-0 bottom-0 translate-y-2 p-5 transition-transform duration-500 ease-expo group-hover:translate-y-0">
-                <div className="label !text-white/60">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+              <div className="liquid absolute inset-x-3 bottom-3 translate-y-1 rounded-2xl px-4 py-3 transition-transform duration-500 ease-expo group-hover:translate-y-0">
+                <div className="label relative z-[2] !text-white/70">
                   {String(i + 1).padStart(2, "0")} · {g.kind}
                 </div>
-                <div className="mt-1 text-lg font-medium leading-snug">{g.name}</div>
+                <div className="relative z-[2] mt-0.5 font-medium leading-snug [text-shadow:0_1px_8px_rgba(0,0,0,.5)]">{g.name}</div>
               </div>
             </motion.button>
           ))}

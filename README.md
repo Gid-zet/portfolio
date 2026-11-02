@@ -15,6 +15,7 @@ Personal portfolio of a Full Stack Developer, UI & Motion Designer and Psycholog
 - Bento skills grid with an animated motion-graphics easing curve
 - Pinned horizontal-scroll design gallery with lightbox
 - Expanding services list, magnetic contact button and a live Accra clock
+- **Liquid glass**: SVG-displacement refraction with chromatic aberration, pointer-tracked specular highlights and rim lighting (nav, buttons, skills cards, gallery captions, a draggable hero lens, the contact orb and the cursor). Chromium shows full refraction; Safari and Firefox fall back to frosted glass.
 - Respects `prefers-reduced-motion`
 
 ## Develop
