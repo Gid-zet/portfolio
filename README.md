@@ -18,6 +18,17 @@ Personal portfolio of a Full Stack Developer, UI & Motion Designer and Psycholog
 - **Liquid glass**: SVG-displacement refraction with chromatic aberration, pointer-tracked specular highlights and rim lighting (nav, buttons, skills cards, gallery captions, a draggable hero lens, the contact orb and the cursor). Chromium shows full refraction; Safari and Firefox fall back to frosted glass.
 - Respects `prefers-reduced-motion`
 
+## Motion graphic: brand reel
+
+`motion/reel.html` is a 14s, 1920×1080 GSAP motion graphic (kinetic type, easing curve, squash & stretch shapes, glass-orb logo reveal).
+Open it in a browser to preview, or re-render the video after editing:
+
+```bash
+npm run reel   # → public/motion/gidzet-reel.mp4, .webm and poster (needs ffmpeg + Playwright Chromium)
+```
+
+It's featured on the site in the "Brand reel" section.
+
 ## Develop
 
 ```bash

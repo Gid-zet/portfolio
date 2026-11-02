@@ -94,7 +94,7 @@ export function Hero() {
           className="liquid mb-8 inline-flex w-fit items-center gap-3 rounded-full py-1.5 pl-1.5 pr-4 text-sm text-white/80"
         >
           <span className="rounded-full bg-white/10 px-2.5 py-0.5 font-mono text-[11px] tracking-wider text-white">NEW</span>
-          Now offering motion graphics ✦
+          Now offering motion graphics ✦ <a href="#reel" className="ml-1 underline decoration-white/30 underline-offset-4 hover:decoration-white">watch reel</a>
         </motion.div>
 
         <h1 className="text-[clamp(3rem,10.5vw,10.5rem)] font-semibold leading-[0.9] tracking-[-0.045em]">

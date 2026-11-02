@@ -6,6 +6,7 @@ import { VelocityMarquee } from "@/components/Marquee";
 import { Nav } from "@/components/Nav";
 import { Preloader } from "@/components/Preloader";
 import { Services } from "@/components/Services";
+import { Showreel } from "@/components/Showreel";
 import { Skills } from "@/components/Skills";
 import { Works } from "@/components/Works";
 import { principles, roles } from "@/lib/data";
@@ -24,6 +25,7 @@ export default function Home() {
         <Works />
         <About />
         <Skills />
+        <Showreel />
         <Designs />
         <Services />
         <Contact />

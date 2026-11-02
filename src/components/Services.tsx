@@ -13,7 +13,7 @@ export function Services() {
       <div className="container-x">
         <div className="flex flex-wrap items-end justify-between gap-8">
           <div>
-            <SectionLabel index="05">What I do</SectionLabel>
+            <SectionLabel index="06">What I do</SectionLabel>
             <SplitReveal as="h2" text="Expertise & specializations" className="mt-6 block max-w-4xl text-[clamp(2.6rem,6vw,5.5rem)] font-semibold leading-[0.95] tracking-[-0.04em]" />
           </div>
           <p className="max-w-sm text-muted">Combining design thinking with technical mastery to deliver world-class digital products.</p>

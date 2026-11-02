@@ -38,7 +38,7 @@ export function Designs() {
       <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
         <div className="container-x mb-10 flex flex-wrap items-end justify-between gap-6">
           <div>
-            <SectionLabel index="04">Graphic design · Visual arts</SectionLabel>
+            <SectionLabel index="05">Graphic design · Visual arts</SectionLabel>
             <h2 className="mt-6 text-[clamp(2.6rem,6vw,5.5rem)] font-semibold leading-[0.95] tracking-[-0.04em]">
               Visual <span className="font-serif font-normal italic text-grad">stories</span>
             </h2>
