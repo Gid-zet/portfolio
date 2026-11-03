@@ -48,6 +48,10 @@ export function Contact() {
             {profile.email}
             <span className="liquid rounded-full px-3 py-1 font-mono text-xs">{copied ? "Copied ✓" : "Copy"}</span>
           </button>
+          <a href={`tel:${profile.phone.replace(/\s/g, "")}`} className="mt-3 flex w-fit items-center gap-3 text-lg text-muted transition-colors hover:text-white md:text-2xl">
+            {profile.phone}
+            <span className="liquid rounded-full px-3 py-1 font-mono text-xs">Call</span>
+          </a>
         </div>
         <Magnetic strength={0.4}>
           <div className="relative grid h-52 w-52 place-items-center md:h-64 md:w-64">

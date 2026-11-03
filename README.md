@@ -20,7 +20,7 @@ Personal portfolio of a Full Stack Developer, UI & Motion Designer and Psycholog
 
 ## Motion graphic: brand reel
 
-`motion/reel.html` is a 14s GSAP motion graphic (kinetic type, easing curve, squash & stretch shapes, glass-orb logo reveal).
+`motion/reel.html` is an 18s GSAP motion graphic (kinetic type, easing curve, squash & stretch shapes, glass-orb logo reveal, contact end card).
 It renders in two formats: 16:9 (1920×1080) and 9:16 (1080×1920, add `?format=vertical`) with text kept inside the Instagram Reels safe zone.
 
 `motion/sfx.py` scores it with original, synthesised sound design (ambient pad, whooshes, risers, letter thuds, typing,

@@ -2,6 +2,7 @@ export const profile = {
   name: "Gideon Adonteng",
   brand: "Gidzet",
   email: "adontenggideon57@gmail.com",
+  phone: "+233 50 030 3230",
   location: "Accra, Ghana",
   timezone: "Africa/Accra",
   socials: [

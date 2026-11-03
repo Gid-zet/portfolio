@@ -35,7 +35,7 @@ export function Showreel() {
             <SplitReveal as="h2" text="Brand reel" className="mt-6 block text-[clamp(2.6rem,6vw,5.5rem)] font-semibold leading-[0.95] tracking-[-0.04em]" />
           </div>
           <p className="max-w-sm text-muted">
-            A 14-second identity piece: kinetic type, easing curves and a liquid-glass logo reveal, built in code and rendered frame by frame.
+            An 18-second identity piece: kinetic type, easing curves and a liquid-glass logo reveal, built in code and rendered frame by frame.
           </p>
         </div>
 
@@ -57,7 +57,7 @@ export function Showreel() {
             <LiquidGlass className="rounded-full px-4 py-2 text-sm">
               <span className="relative z-[2] flex items-center gap-2">
                 <span className={`h-2 w-2 rounded-full ${playing ? "pulse-dot bg-red-500" : "bg-white/50"}`} />
-                GIDZET · Brand reel · 0:14
+                GIDZET · Brand reel · 0:18
               </span>
             </LiquidGlass>
             <div className="flex gap-2">

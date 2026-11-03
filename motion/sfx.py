@@ -16,7 +16,7 @@ import wave
 import numpy as np
 
 SR = 48_000
-DUR = 14.0
+DUR = 18.0
 N = int(SR * DUR)
 rng = np.random.default_rng(7)
 
@@ -222,7 +222,7 @@ def pad(chords, gain=0.05):
 pad_bus = pad([
     (0.0, 6.2, ["A2", "E3", "B3", "C#4", "G#4"]),      # A maj9
     (6.0, 10.1, ["F#2", "C#3", "A3", "E4", "G#4"]),    # F#m9
-    (10.0, 14.0, ["A2", "E3", "C#4", "G#4", "B4"]),    # A maj9 resolve on the logo
+    (10.0, 18.0, ["A2", "E3", "C#4", "G#4", "B4"]),    # A maj9 resolve on the logo
 ])
 
 # 1 · Psychology
@@ -273,6 +273,23 @@ whoosh(11.6, 0.6, 1200, 5200, gain=0.14, pan0=-0.3, pan1=0.3, peak=0.5)
 shimmer(12.0, 1.1, gain=0.15, pan0=-0.8, pan1=0.8, density=30)
 bell(12.3, note("E6"), gain=0.17, pan=-0.15)
 bell(12.42, note("A6"), gain=0.15, pan=0.15)
+
+# 5 · Contact card
+whoosh(13.35, 0.5, 4200, 900, gain=0.22, pan0=0.2, pan1=-0.2, peak=0.5)
+whoosh(13.5, 0.95, 350, 2800, gain=0.3, pan0=-0.2, pan1=0.2, peak=0.55)
+riser(13.45, 0.5, 300, 1800, gain=0.1)
+thud(13.98, f=78, gain=0.32)
+shimmer(13.98, 0.5, gain=0.08, density=14)
+bell(14.12, note("C#6"), gain=0.12, pan=-0.2, length=1.6)
+for i, (nm, pan) in enumerate([("E5", -0.3), ("A5", 0.3)]):
+    t0 = 14.4 + i * 0.22
+    pop(t0 + 0.08, f=note(nm), gain=0.3, pan=pan)
+    whoosh(t0 - 0.05, 0.35, 600, 3600, gain=0.1, pan0=-0.5, pan1=pan, peak=0.7, q=2)
+    for k in range(6):
+        key_click(t0 + 0.12 + k * 0.045, gain=0.16, pan=pan)
+shimmer(15.6, 1.3, gain=0.12, pan0=-0.8, pan1=0.8, density=22)
+bell(16.0, note("A5"), gain=0.12, pan=-0.1, length=2.0)
+bell(16.12, note("E6"), gain=0.1, pan=0.1, length=2.0)
 
 
 # ─── reverb, ducking and master ────────────────────────────────────────────
