@@ -20,14 +20,24 @@ Personal portfolio of a Full Stack Developer, UI & Motion Designer and Psycholog
 
 ## Motion graphic: brand reel
 
-`motion/reel.html` is a 14s, 1920×1080 GSAP motion graphic (kinetic type, easing curve, squash & stretch shapes, glass-orb logo reveal).
-Open it in a browser to preview, or re-render the video after editing:
+`motion/reel.html` is a 14s GSAP motion graphic (kinetic type, easing curve, squash & stretch shapes, glass-orb logo reveal).
+It renders in two formats: 16:9 (1920×1080) and 9:16 (1080×1920, add `?format=vertical`) with text kept inside the Instagram Reels safe zone.
+
+`motion/sfx.py` scores it with original, synthesised sound design (ambient pad, whooshes, risers, letter thuds, typing,
+bubble pops, sub-bass logo impact, shimmer and a UI chime), mixed through a stereo reverb and delivered at -14 LUFS.
 
 ```bash
-npm run reel   # → public/motion/gidzet-reel.mp4, .webm and poster (needs ffmpeg + Playwright Chromium)
+npm run reel                      # both cuts
+npm run reel -- --only=vertical   # just the 9:16 cut
 ```
 
-It's featured on the site in the "Brand reel" section.
+| File (`public/motion/`) | Use |
+| --- | --- |
+| `gidzet-reel-9x16.mp4` | Instagram Reels / TikTok / YouTube Shorts (with sound) |
+| `gidzet-reel-16x9.mp4` | Landscape with sound (used on the site) |
+| `gidzet-reel.mp4`, `.webm` | Landscape, silent |
+
+Needs ffmpeg, python3 + numpy and Playwright's Chromium.
 
 ## Develop
 

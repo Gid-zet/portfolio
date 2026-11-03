@@ -9,6 +9,7 @@ export function Showreel() {
   const ref = useRef<HTMLDivElement>(null);
   const video = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(true);
+  const [muted, setMuted] = useState(true);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "center center"] });
   const scale = useTransform(scrollYProgress, [0, 1], [0.82, 1]);
   const radius = useTransform(scrollYProgress, [0, 1], [64, 28]);
@@ -43,15 +44,14 @@ export function Showreel() {
             ref={video}
             className="absolute inset-0 h-full w-full cursor-pointer object-cover"
             poster="/motion/gidzet-reel-poster.jpg"
-            muted
+            muted={muted}
             loop
             playsInline
             preload="metadata"
             aria-label="GIDZET brand reel motion graphic"
             onClick={() => setPlaying((p) => !p)}
           >
-            <source src="/motion/gidzet-reel.webm" type="video/webm" />
-            <source src="/motion/gidzet-reel.mp4" type="video/mp4" />
+            <source src="/motion/gidzet-reel-16x9.mp4" type="video/mp4" />
           </video>
           <div className="pointer-events-none absolute inset-x-4 bottom-4 flex items-end justify-between gap-3 md:inset-x-6 md:bottom-6">
             <LiquidGlass className="rounded-full px-4 py-2 text-sm">
@@ -60,14 +60,33 @@ export function Showreel() {
                 GIDZET · Brand reel · 0:14
               </span>
             </LiquidGlass>
-            <LiquidGlass as="button" onClick={() => setPlaying((p) => !p)} aria-label={playing ? "Pause reel" : "Play reel"} className="pointer-events-auto grid h-12 w-12 place-items-center rounded-full">
-              <span className="relative z-[2] text-sm">{playing ? "❚❚" : "▶"}</span>
-            </LiquidGlass>
+            <div className="flex gap-2">
+              <LiquidGlass
+                as="button"
+                onClick={() => {
+                  setMuted((m) => !m);
+                  video.current?.play().catch(() => {});
+                }}
+                aria-label={muted ? "Turn sound on" : "Mute"}
+                className="pointer-events-auto flex h-12 items-center gap-2 rounded-full px-4 text-sm"
+              >
+                <span className="relative z-[2] flex items-center gap-2">
+                  <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
+                    <path d="M11 5 6 9H3v6h3l5 4z" fill="currentColor" />
+                    {muted ? <path d="m16 9 5 6m0-6-5 6" /> : <path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13" />}
+                  </svg>
+                  {muted ? "Sound on" : "Sound off"}
+                </span>
+              </LiquidGlass>
+              <LiquidGlass as="button" onClick={() => setPlaying((p) => !p)} aria-label={playing ? "Pause reel" : "Play reel"} className="pointer-events-auto grid h-12 w-12 place-items-center rounded-full">
+                <span className="relative z-[2] text-sm">{playing ? "❚❚" : "▶"}</span>
+              </LiquidGlass>
+            </div>
           </div>
         </motion.div>
 
         <div className="mt-6 flex flex-wrap gap-2">
-          {["After Effects-style keyframing", "Kinetic typography", "Squash & stretch", "Custom easing", "GSAP", "Rendered to MP4"].map((t) => (
+          {["After Effects-style keyframing", "Kinetic typography", "Squash & stretch", "Custom easing", "GSAP", "Original sound design"].map((t) => (
             <span key={t} className="chip">{t}</span>
           ))}
         </div>
