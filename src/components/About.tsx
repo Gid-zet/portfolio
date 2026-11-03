@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { animate, motion, useInView, useScroll, useTransform, type MotionValue } from "motion/react";
+import { animate, motion, useInView, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { LiquidGlass } from "./LiquidGlass";
 import { FadeUp, SectionLabel } from "./Reveal";
@@ -48,13 +48,115 @@ function ScrollText({ text }: { text: string }) {
   );
 }
 
-export function About() {
-  const imgRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: imgRef, offset: ["start end", "end start"] });
-  const imgY = useTransform(scrollYProgress, [0, 1], ["-12%", "12%"]);
-  // the candid shot drifts faster than the portrait for depth
-  const candidY = useTransform(scrollYProgress, [0, 1], [90, -90]);
+const photos = [
+  { src: "/profile.jpg", alt: "Gideon Adonteng seated in a gallery lobby", title: "Gideon Adonteng", sub: "Developer · Designer", pos: "center 50%" },
+  { src: "/profile-candid.jpg", alt: "Gideon Adonteng smiling, a candid selfie", title: "Off-screen", sub: "The human behind the code", pos: "center 36%" },
+];
 
+const swapEase = [0.65, 0, 0.35, 1] as const;
+const pose = {
+  front: { x: "0%", y: "0%", rotate: 0, scale: 1, filter: "brightness(1)" },
+  back: { x: "7%", y: "-5%", rotate: 5, scale: 0.92, filter: "brightness(0.5)" },
+};
+
+/** Two stacked prints that shuffle places: the front one slides out and tucks behind. */
+function PhotoStack() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { margin: "-20% 0px" });
+  const reduce = useReducedMotion();
+  const [front, setFront] = useState(0);
+  const [swaps, setSwaps] = useState(0);
+  const [hovered, setHovered] = useState(false);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const imgY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
+
+  const swap = () => {
+    setFront((f) => (f + 1) % photos.length);
+    setSwaps((n) => n + 1);
+  };
+
+  // auto-shuffle while visible; pause on hover and for reduced-motion users
+  useEffect(() => {
+    if (!inView || hovered || reduce) return;
+    const id = setInterval(swap, 4500);
+    return () => clearInterval(id);
+  }, [inView, hovered, reduce]);
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 60 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-10% 0px" }}
+      transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+      className="relative aspect-[3/4]"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {photos.map((ph, i) => {
+        const isFront = i === front;
+        // after the first swap, play the shuffle path; before that, just sit in pose
+        const motionPath = swaps === 0
+          ? (isFront ? pose.front : pose.back)
+          : isFront
+            ? { x: ["7%", "62%", "0%"], y: ["-5%", "-2%", "0%"], rotate: [5, 14, 0], scale: [0.92, 0.97, 1], filter: ["brightness(0.5)", "brightness(0.9)", "brightness(1)"], zIndex: [1, 1, 2, 2] }
+            : { x: ["0%", "-12%", "7%"], y: ["0%", "2%", "-5%"], rotate: [0, -6, 5], scale: [1, 0.9, 0.92], filter: ["brightness(1)", "brightness(0.7)", "brightness(0.5)"], zIndex: [2, 2, 1, 1] };
+        return (
+          <motion.figure
+            key={ph.src}
+            initial={false}
+            animate={motionPath}
+            transition={{ duration: 0.95, ease: swapEase, zIndex: { duration: 0.95, times: [0, 0.5, 0.501, 1] } }}
+            style={{ zIndex: isFront ? 2 : 1 }}
+            onClick={swap}
+            data-cursor={isFront ? "Switch" : undefined}
+            className="absolute inset-0 cursor-pointer overflow-hidden rounded-[28px] shadow-[0_30px_80px_-25px_rgba(0,0,0,.85)]"
+            aria-hidden={!isFront}
+          >
+            <motion.div style={{ y: imgY }} className="absolute inset-[-10%_0]">
+              <Image src={ph.src} alt={ph.alt} fill sizes="(max-width: 1024px) 100vw, 520px" className="object-cover grayscale" style={{ objectPosition: ph.pos }} />
+            </motion.div>
+            <figcaption className="absolute inset-x-0 bottom-0 flex items-end justify-between bg-gradient-to-t from-black/80 to-transparent p-6">
+              <div>
+                <div className="font-serif text-3xl italic">{ph.title}</div>
+                <div className="label !text-white/60">{ph.sub}</div>
+              </div>
+              {i === 0 && (
+                <svg viewBox="0 0 100 100" className="spin-slow h-20 w-20" aria-hidden>
+                  <defs>
+                    <path id="circ" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0" />
+                  </defs>
+                  <text fontSize="10.5" fill="white" letterSpacing="2.4" fontFamily="var(--font-geist-mono)">
+                    <textPath href="#circ">PSYCHOLOGY · CODE · DESIGN · MOTION ·</textPath>
+                  </text>
+                  <circle cx="50" cy="50" r="4" fill="#ec4899" />
+                </svg>
+              )}
+            </figcaption>
+          </motion.figure>
+        );
+      })}
+
+      <LiquidGlass
+        as="button"
+        onClick={swap}
+        aria-label={`Show ${photos[(front + 1) % photos.length].title} photo`}
+        className="absolute left-4 top-4 z-10 flex items-center gap-2.5 rounded-full !bg-black/35 py-2 pl-2 pr-4 text-sm [text-shadow:0_1px_8px_rgba(0,0,0,.6)]"
+      >
+        <span className="relative z-[2] flex items-center gap-2.5">
+          <span className="flex gap-1">
+            {photos.map((_, i) => (
+              <span key={i} className={`h-1.5 rounded-full transition-all duration-500 ${i === front ? "w-5 bg-white" : "w-1.5 bg-white/40"}`} />
+            ))}
+          </span>
+          Switch ⇄
+        </span>
+      </LiquidGlass>
+    </motion.div>
+  );
+}
+
+export function About() {
   return (
     <section id="about" className="relative py-32 md:py-44">
       <div className="container-x">
@@ -65,58 +167,7 @@ export function About() {
 
         <div className="mt-24 grid gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
           <div>
-            <div className="relative">
-              <motion.div
-                ref={imgRef}
-                initial={{ clipPath: "inset(100% 0 0 0 round 28px)" }}
-                whileInView={{ clipPath: "inset(0% 0 0 0 round 28px)" }}
-                viewport={{ once: true, margin: "-10% 0px" }}
-                transition={{ duration: 1.4, ease: [0.76, 0, 0.24, 1] }}
-                className="relative aspect-[3/4] overflow-hidden rounded-[28px]"
-                data-cursor="Hello"
-              >
-                <motion.div style={{ y: imgY }} className="absolute inset-[-12%_0]">
-                  <Image src="/profile.jpg" alt="Gideon Adonteng" fill sizes="(max-width: 1024px) 100vw, 520px" className="object-cover grayscale transition duration-700 hover:grayscale-0" />
-                </motion.div>
-                <div className="absolute inset-x-0 bottom-0 flex items-end justify-between bg-gradient-to-t from-black/80 to-transparent p-6">
-                  <div>
-                    <div className="font-serif text-3xl italic">Gideon Adonteng</div>
-                    <div className="label !text-white/60">Developer · Designer</div>
-                  </div>
-                  <svg viewBox="0 0 100 100" className="spin-slow h-20 w-20" aria-hidden>
-                    <defs>
-                      <path id="circ" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0" />
-                    </defs>
-                    <text fontSize="10.5" fill="white" letterSpacing="2.4" fontFamily="var(--font-geist-mono)">
-                      <textPath href="#circ">PSYCHOLOGY · CODE · DESIGN · MOTION ·</textPath>
-                    </text>
-                    <circle cx="50" cy="50" r="4" fill="#ec4899" />
-                  </svg>
-                </div>
-              </motion.div>
-
-              {/* candid shot: a tilted glass-framed print layered over the portrait */}
-              <motion.figure
-                style={{ y: candidY }}
-                initial={{ opacity: 0, rotate: 18, scale: 0.85 }}
-                whileInView={{ opacity: 1, rotate: 6, scale: 1 }}
-                whileHover={{ rotate: 0, scale: 1.04 }}
-                viewport={{ once: true, margin: "-10% 0px" }}
-                transition={{ type: "spring", stiffness: 120, damping: 16, delay: 0.5 }}
-                className="absolute -right-[4%] -top-[5%] z-10 w-[42%] lg:-right-[6%] lg:w-[44%]"
-                data-cursor="Hi!"
-              >
-                <LiquidGlass className="rounded-[22px] p-2 shadow-[0_30px_80px_-20px_rgba(0,0,0,.8)] md:p-2.5">
-                  <div className="relative aspect-[9/16] overflow-hidden rounded-[16px]">
-                    <Image src="/profile-candid.jpg" alt="Gideon Adonteng smiling, a candid selfie" fill sizes="(max-width: 1024px) 42vw, 260px" className="object-cover object-[center_40%]" />
-                  </div>
-                  <figcaption className="relative z-[2] flex items-center justify-between px-1.5 pb-0.5 pt-2.5">
-                    <span className="font-serif text-lg italic leading-none [text-shadow:0_1px_10px_rgba(0,0,0,.7)] md:text-xl">off-screen</span>
-                    <span className="text-fuchsia">✦</span>
-                  </figcaption>
-                </LiquidGlass>
-              </motion.figure>
-            </div>
+            <PhotoStack />
             <div className="mt-4 grid grid-cols-2 gap-4">
               {[
                 { n: 5, s: "+", l: "Years experience" },
