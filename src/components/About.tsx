@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { animate, motion, useInView, useScroll, useTransform, type MotionValue } from "motion/react";
 import { useEffect, useRef, useState } from "react";
+import { LiquidGlass } from "./LiquidGlass";
 import { FadeUp, SectionLabel } from "./Reveal";
 
 function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
@@ -51,6 +52,8 @@ export function About() {
   const imgRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: imgRef, offset: ["start end", "end start"] });
   const imgY = useTransform(scrollYProgress, [0, 1], ["-12%", "12%"]);
+  // the candid shot drifts faster than the portrait for depth
+  const candidY = useTransform(scrollYProgress, [0, 1], [90, -90]);
 
   return (
     <section id="about" className="relative py-32 md:py-44">
@@ -62,34 +65,58 @@ export function About() {
 
         <div className="mt-24 grid gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
           <div>
-            <motion.div
-              ref={imgRef}
-              initial={{ clipPath: "inset(100% 0 0 0 round 28px)" }}
-              whileInView={{ clipPath: "inset(0% 0 0 0 round 28px)" }}
-              viewport={{ once: true, margin: "-10% 0px" }}
-              transition={{ duration: 1.4, ease: [0.76, 0, 0.24, 1] }}
-              className="relative aspect-[3/4] overflow-hidden rounded-[28px]"
-              data-cursor="Hello"
-            >
-              <motion.div style={{ y: imgY }} className="absolute inset-[-12%_0]">
-                <Image src="/profile.jpg" alt="Gideon Adonteng" fill sizes="(max-width: 1024px) 100vw, 520px" className="object-cover grayscale transition duration-700 hover:grayscale-0" />
-              </motion.div>
-              <div className="absolute inset-x-0 bottom-0 flex items-end justify-between bg-gradient-to-t from-black/80 to-transparent p-6">
-                <div>
-                  <div className="font-serif text-3xl italic">Gideon Adonteng</div>
-                  <div className="label !text-white/60">Developer · Designer</div>
+            <div className="relative">
+              <motion.div
+                ref={imgRef}
+                initial={{ clipPath: "inset(100% 0 0 0 round 28px)" }}
+                whileInView={{ clipPath: "inset(0% 0 0 0 round 28px)" }}
+                viewport={{ once: true, margin: "-10% 0px" }}
+                transition={{ duration: 1.4, ease: [0.76, 0, 0.24, 1] }}
+                className="relative aspect-[3/4] overflow-hidden rounded-[28px]"
+                data-cursor="Hello"
+              >
+                <motion.div style={{ y: imgY }} className="absolute inset-[-12%_0]">
+                  <Image src="/profile.jpg" alt="Gideon Adonteng" fill sizes="(max-width: 1024px) 100vw, 520px" className="object-cover grayscale transition duration-700 hover:grayscale-0" />
+                </motion.div>
+                <div className="absolute inset-x-0 bottom-0 flex items-end justify-between bg-gradient-to-t from-black/80 to-transparent p-6">
+                  <div>
+                    <div className="font-serif text-3xl italic">Gideon Adonteng</div>
+                    <div className="label !text-white/60">Developer · Designer</div>
+                  </div>
+                  <svg viewBox="0 0 100 100" className="spin-slow h-20 w-20" aria-hidden>
+                    <defs>
+                      <path id="circ" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0" />
+                    </defs>
+                    <text fontSize="10.5" fill="white" letterSpacing="2.4" fontFamily="var(--font-geist-mono)">
+                      <textPath href="#circ">PSYCHOLOGY · CODE · DESIGN · MOTION ·</textPath>
+                    </text>
+                    <circle cx="50" cy="50" r="4" fill="#ec4899" />
+                  </svg>
                 </div>
-                <svg viewBox="0 0 100 100" className="spin-slow h-20 w-20" aria-hidden>
-                  <defs>
-                    <path id="circ" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0" />
-                  </defs>
-                  <text fontSize="10.5" fill="white" letterSpacing="2.4" fontFamily="var(--font-geist-mono)">
-                    <textPath href="#circ">PSYCHOLOGY · CODE · DESIGN · MOTION ·</textPath>
-                  </text>
-                  <circle cx="50" cy="50" r="4" fill="#ec4899" />
-                </svg>
-              </div>
-            </motion.div>
+              </motion.div>
+
+              {/* candid shot: a tilted glass-framed print layered over the portrait */}
+              <motion.figure
+                style={{ y: candidY }}
+                initial={{ opacity: 0, rotate: 18, scale: 0.85 }}
+                whileInView={{ opacity: 1, rotate: 6, scale: 1 }}
+                whileHover={{ rotate: 0, scale: 1.04 }}
+                viewport={{ once: true, margin: "-10% 0px" }}
+                transition={{ type: "spring", stiffness: 120, damping: 16, delay: 0.5 }}
+                className="absolute -right-[4%] -top-[5%] z-10 w-[42%] lg:-right-[6%] lg:w-[44%]"
+                data-cursor="Hi!"
+              >
+                <LiquidGlass className="rounded-[22px] p-2 shadow-[0_30px_80px_-20px_rgba(0,0,0,.8)] md:p-2.5">
+                  <div className="relative aspect-[9/16] overflow-hidden rounded-[16px]">
+                    <Image src="/profile-candid.jpg" alt="Gideon Adonteng smiling, a candid selfie" fill sizes="(max-width: 1024px) 42vw, 260px" className="object-cover object-[center_40%]" />
+                  </div>
+                  <figcaption className="relative z-[2] flex items-center justify-between px-1.5 pb-0.5 pt-2.5">
+                    <span className="font-serif text-lg italic leading-none [text-shadow:0_1px_10px_rgba(0,0,0,.7)] md:text-xl">off-screen</span>
+                    <span className="text-fuchsia">✦</span>
+                  </figcaption>
+                </LiquidGlass>
+              </motion.figure>
+            </div>
             <div className="mt-4 grid grid-cols-2 gap-4">
               {[
                 { n: 5, s: "+", l: "Years experience" },
