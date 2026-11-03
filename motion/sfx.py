@@ -280,14 +280,9 @@ whoosh(13.5, 0.95, 350, 2800, gain=0.3, pan0=-0.2, pan1=0.2, peak=0.55)
 riser(13.45, 0.5, 300, 1800, gain=0.1)
 thud(13.98, f=78, gain=0.32)
 shimmer(13.98, 0.5, gain=0.08, density=14)
-# portrait reveal: soft shutter, a rounded pop and a bell
-key_click(14.0, gain=0.22, pan=-0.1)
-key_click(14.05, gain=0.16, pan=0.1)
-pop(14.06, f=note("C#5"), gain=0.34)
-shimmer(14.08, 0.6, gain=0.07, density=12)
-bell(14.24, note("C#6"), gain=0.12, pan=-0.2, length=1.6)
+bell(14.12, note("C#6"), gain=0.12, pan=-0.2, length=1.6)
 for i, (nm, pan) in enumerate([("E5", -0.3), ("A5", 0.3)]):
-    t0 = 14.55 + i * 0.22
+    t0 = 14.4 + i * 0.22
     pop(t0 + 0.08, f=note(nm), gain=0.3, pan=pan)
     whoosh(t0 - 0.05, 0.35, 600, 3600, gain=0.1, pan0=-0.5, pan1=pan, peak=0.7, q=2)
     for k in range(6):
