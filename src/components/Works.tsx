@@ -3,10 +3,8 @@
 import Image from "next/image";
 import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
 import { useRef } from "react";
-import { projects } from "@/lib/data";
+import { projects, type Project } from "@/lib/data";
 import { SectionLabel, SplitReveal } from "./Reveal";
-
-type Project = (typeof projects)[number];
 
 function Card({ p, i, progress, total }: { p: Project; i: number; progress: MotionValue<number>; total: number }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -50,9 +48,13 @@ function Card({ p, i, progress, total }: { p: Project; i: number; progress: Moti
                 <a href={p.live} target="_blank" rel="noreferrer" className="group inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-medium text-black">
                   Live site <span className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">↗</span>
                 </a>
-                <a href={p.github} target="_blank" rel="noreferrer" className="liquid inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-medium">
-                  Source code
-                </a>
+                {p.github ? (
+                  <a href={p.github} target="_blank" rel="noreferrer" className="liquid inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-medium">
+                    Source code
+                  </a>
+                ) : (
+                  <span className="inline-flex items-center rounded-full px-5 py-3 text-sm text-muted">Client project · private repo</span>
+                )}
               </div>
             </div>
           </div>

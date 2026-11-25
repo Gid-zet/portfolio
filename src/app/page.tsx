@@ -7,6 +7,7 @@ import { Nav } from "@/components/Nav";
 import { Preloader } from "@/components/Preloader";
 import { Services } from "@/components/Services";
 import { Showreel } from "@/components/Showreel";
+import { MotionWork } from "@/components/MotionWork";
 import { Skills } from "@/components/Skills";
 import { Works } from "@/components/Works";
 import { principles, roles } from "@/lib/data";
@@ -26,6 +27,7 @@ export default function Home() {
         <About />
         <Skills />
         <Showreel />
+        <MotionWork />
         <Designs />
         <Services />
         <Contact />

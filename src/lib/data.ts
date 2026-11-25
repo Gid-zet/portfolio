@@ -15,19 +15,45 @@ export const profile = {
 export const roles = ["Web Developer", "UI Designer", "Motion Designer", "Creative Technologist"];
 export const principles = ["Clean Code", "Modular Design", "Pixel Perfect", "Fluid Motion"];
 
-export const projects = [
+export type Project = {
+  name: string;
+  tagline: string;
+  description: string;
+  client: string;
+  services: string[];
+  year: string;
+  image: string;
+  accent: string;
+  live: string;
+  /** Omitted for private client repositories. */
+  github?: string;
+};
+
+export const projects: Project[] = [
   {
     name: "EverythingVA",
-    tagline: "AI-Powered Email Automation Client",
+    tagline: "An AI workspace for mail, calendar, tasks and growth",
     description:
-      "Built an AI-powered email client utilizing Next.js to automate email management and response categorization. It streamlines digital workflows by intelligently sorting incoming communications and suggesting responses based on context.",
+      "A full-stack AI assistant that brings Gmail, Outlook and iCloud together with a calendar, a Linear-style task manager with streaks and reminders, procurement bid tracking, lead generation and a job-search tracker. AI sorts and drafts mail, qualifies leads, scores tenders and tailors CVs, and always asks before it acts.",
     client: "Winnck Enterprise",
-    services: ["Full Stack Development", "AI Integration"],
-    year: "2024",
-    image: "/work/everythingva.jpg",
+    services: ["Full Stack Development", "AI Integration", "Product Design"],
+    year: "2026",
+    image: "/work/everythingva-2026.jpg",
     accent: "#7c5cff",
-    live: "https://everything-va2.vercel.app/",
-    github: "https://github.com/Gid-zet7/everything-va2",
+    live: "https://everythingva-brown.vercel.app/",
+    github: "https://github.com/Gid-zet/everythingVA",
+  },
+  {
+    name: "Cummings Consulting & Management",
+    tagline: "Interactive leadership-development website",
+    description:
+      "A scroll-driven storytelling site for a leadership consultancy: a 3D brain you can explore in the Leadership Lens tool, a Growth Compass assessment, an interactive DiSC model and a pinwheel that spins with your scroll. Every form feeds GoHighLevel, creating contacts, tags and pipeline opportunities automatically.",
+    client: "Cummings Consulting & Management",
+    services: ["Web Design", "3D & Motion", "CRM Integration"],
+    year: "2026",
+    image: "/work/ccm.jpg",
+    accent: "#a0367c",
+    live: "https://cummingscm.vercel.app/",
   },
   {
     name: "AI Bible",
@@ -54,6 +80,99 @@ export const projects = [
     accent: "#ec4899",
     live: "https://tillyn.com",
     github: "https://github.com/Gid-zet7/tillyn-store",
+  },
+];
+
+export type MotionPiece = {
+  title: string;
+  client: string;
+  kind: string;
+  src: string;
+  poster: string;
+  ratio: "16/9" | "9/16" | "1/1";
+  duration: string;
+  sound: boolean;
+  blurb: string;
+};
+
+/** Motion work rendered in code (HyperFrames / GSAP) and compressed for the web. */
+export const motionWork: MotionPiece[] = [
+  {
+    title: "How your brain creates your reality",
+    client: "CCM · Leadership Lens",
+    kind: "Explainer film",
+    src: "/motion/work/leadership-lens-brain.mp4",
+    poster: "/motion/work/leadership-lens-brain.jpg",
+    ratio: "16/9",
+    duration: "1:39",
+    sound: true,
+    blurb: "An explainer for the Leadership Lens tool on how the brain turns events into interpretation, with a glowing neural model and kinetic type.",
+  },
+  {
+    title: "CalMe brand film",
+    client: "CalMe",
+    kind: "Brand film",
+    src: "/motion/work/calme-film.mp4",
+    poster: "/motion/work/calme-film.jpg",
+    ratio: "16/9",
+    duration: "0:20",
+    sound: true,
+    blurb: "A playful identity film for a mental-wellness brand, with doodles, stickers and the CalMe logo reveal.",
+  },
+  {
+    title: "Training that sticks",
+    client: "Cummings Consulting & Management",
+    kind: "Social story · 9:16",
+    src: "/motion/work/ccm-training-story.mp4",
+    poster: "/motion/work/ccm-training-story.jpg",
+    ratio: "9/16",
+    duration: "0:21",
+    sound: true,
+    blurb: "A vertical story ad with an animated phone UI browsing leadership and team trainings.",
+  },
+  {
+    title: "Dims Premium Services promo",
+    client: "DPS",
+    kind: "Promo · 9:16",
+    src: "/motion/work/dps-promo.mp4",
+    poster: "/motion/work/dps-promo.jpg",
+    ratio: "9/16",
+    duration: "0:32",
+    sound: true,
+    blurb: "Clean spaces, zero stress: a bright vertical promo for a cleaning company, with a glassy logo card and soft bubbles.",
+  },
+  {
+    title: "GRIT: something you build",
+    client: "CCM · GRIT Leadership Series",
+    kind: "Concept film",
+    src: "/motion/work/grit-pinwheel.mp4",
+    poster: "/motion/work/grit-pinwheel.jpg",
+    ratio: "16/9",
+    duration: "1:08",
+    sound: false,
+    blurb: "A moody 3D pinwheel film for the GRIT Leadership Series: grit isn't something you simply have, it's something you build.",
+  },
+  {
+    title: "Strata: every home, layer by layer",
+    client: "Strata Homes",
+    kind: "Product animation",
+    src: "/motion/work/strata-exploded-view.mp4",
+    poster: "/motion/work/strata-exploded-view.jpg",
+    ratio: "16/9",
+    duration: "0:27",
+    sound: false,
+    blurb: "An exploded 3D view of a modern house for a real-estate platform: every home, layer by layer.",
+  },
+  {
+    title: "Forgotten by Monday",
+    client: "CCM · GRIT Leadership Series",
+    kind: "Social ad · 1:1",
+    src: "/motion/work/grit-square.mp4",
+    poster: "/motion/work/grit-square.jpg",
+    ratio: "1/1",
+    duration: "0:42",
+    sound: true,
+    blurb: "A voiced square ad with strike-through kinetic type that questions one-day leadership trainings.",
   },
 ];
 
