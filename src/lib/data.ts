@@ -70,16 +70,16 @@ export const projects: Project[] = [
   },
   {
     name: "AI Bible",
-    tagline: "Real-Time Audio-to-Scripture Processing",
+    tagline: "Live sermon scripture detection",
     description:
-      "Developed an application that processes live audio during sermons to display relevant Bible quotations in real-time. It leverages speech-to-text combined with search algorithms to provide an immersive scriptural experience during live events.",
+      "Listens to a live sermon and puts the right verse on screen as it is spoken. A custom parser understands references the way preachers say them (\"first Corinthians thirteen, four to seven\", \"next verse\"), a trigram index recognises verses recited without a reference, and the operator gets a review queue, keyboard control, four translations and a projector or OBS output.",
     client: "Self-Initiated",
-    services: ["Real-time Processing", "Speech AI"],
-    year: "2025",
-    image: "/work/aibible.jpg",
+    services: ["Speech Recognition", "Real-time Processing", "Full Stack Development"],
+    year: "2026",
+    image: "/work/aibible-2026.jpg",
     accent: "#e9a23b",
-    live: "https://aibible.app",
-    github: "https://github.com/Gid-zet7/ai-bible",
+    live: "https://ai-bible.vercel.app",
+    github: "https://github.com/Gid-zet/AI-Bible-Quotation-App-Test",
   },
   {
     name: "Tillyn eCommerce",
