@@ -56,6 +56,19 @@ export const projects: Project[] = [
     live: "https://cummingscm.vercel.app/",
   },
   {
+    name: "CalMe",
+    tagline: "Mental-health website and therapy booking platform",
+    description:
+      "A website and booking platform that connects people with GPC-verified psychologists. Clients find, compare and book sessions; psychologists run their calendar, availability and verification from a practice workspace; admins get analytics, a verification queue and an audit log. Built with a tested scheduling engine that prevents double bookings.",
+    client: "CalMe",
+    services: ["Full Stack Development", "Booking System", "UI Design"],
+    year: "2026",
+    image: "/work/calme.jpg",
+    accent: "#2f6fe4",
+    live: "https://calme-website.vercel.app/",
+    github: "https://github.com/Gid-zet/calme-website",
+  },
+  {
     name: "AI Bible",
     tagline: "Real-Time Audio-to-Scripture Processing",
     description:
@@ -140,17 +153,6 @@ export const motionWork: MotionPiece[] = [
     duration: "0:32",
     sound: true,
     blurb: "Clean spaces, zero stress: a bright vertical promo for a cleaning company, with a glassy logo card and soft bubbles.",
-  },
-  {
-    title: "GRIT: something you build",
-    client: "CCM · GRIT Leadership Series",
-    kind: "Concept film",
-    src: "/motion/work/grit-pinwheel.mp4",
-    poster: "/motion/work/grit-pinwheel.jpg",
-    ratio: "16/9",
-    duration: "1:08",
-    sound: false,
-    blurb: "A moody 3D pinwheel film for the GRIT Leadership Series: grit isn't something you simply have, it's something you build.",
   },
   {
     title: "Strata: every home, layer by layer",
